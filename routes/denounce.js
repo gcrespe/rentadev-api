@@ -1,5 +1,5 @@
 var express = require('express');
-const { default: DenounceController } = require('../controllers/DenouncesController');
+const DenounceController = require('../controllers/DenouncesController');
 var router = express.Router();
 
 /* GET home page. */

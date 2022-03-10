@@ -3,13 +3,13 @@ var mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const commentary = {
-    commentaryId: {type : Number},
-    date: {type : Date, default: Date.now},
+    commentaryId: {type : String},
+    date: {type : String},
     content: {type : String}
 }
 
 var DenounceModel = new Schema({
-    denounceId: {type : Number},
+    denounceId: {type : String},
     userEmail: {type : String},
     cep: {type : String},
     street: {type : String},
@@ -19,7 +19,7 @@ var DenounceModel = new Schema({
     description: {type : String},
     images: {type : [String]},
     videos: {type : [String]},
-    date: {type : Date, default: Date.now},
+    date: {type : String},
     status: {type: String, default: 'PENDENTE'},
     commentaries: {type: [commentary]}
 },

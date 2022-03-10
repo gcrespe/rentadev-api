@@ -1,6 +1,6 @@
 const Users = require('../models/user')
 
-export default class UsersController {
+class UsersController {
 
     static async login(req, res) {
         let body = req.body;
@@ -37,3 +37,4 @@ export default class UsersController {
 
 }
 
+module.exports = UsersController;
