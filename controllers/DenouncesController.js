@@ -12,7 +12,7 @@ class DenounceController {
         denounce.userEmail = body.userEmail
         denounce.cep = body.cep
         denounce.street = body.street
-        denounce.number = body.numer
+        denounce.number = body.number
         denounce.complement = body.complement
         denounce.district = body.district
         denounce.description = body.description
@@ -34,14 +34,12 @@ class DenounceController {
     static async removeDenounce(req, res){
         let body = req.body;
 
-        let denounce = Denounce.findOne({denouceId: body.denounceId})
-
-        await Denounce.findOneAndRemove({denouceId: body.denounceId})
+        Denounce.findOneAndRemove({denouceId: body.denounceId})
 
         return res.status(200).json({
 			success: true,
 			message: 'The following denounce has been removed',
-			payload: [denounce]
+			payload: body.denounceId
 		});
 
     }
@@ -54,20 +52,37 @@ class DenounceController {
             {status: body.status}
         )
 
-        let denounce = Denounce.findOne({denounceId: body.denounceId})
-
         return res.status(200).json({
 			success: true,
 			message: 'The following denounce has been updated',
-			payload: [denounce]
+			payload: [body.denounceId]
 		});
 
     }
 
     static async getDenounceHistory(req, res){
-        let body = req.body;
 
-        let denounceList = Denouce.find()
+        let denounceList = await Denounce.find({})
+
+        console.log(denounceList)
+
+        return res.status(200).json({
+			success: true,
+			payload: [denounceList]
+		});
+    }
+
+    static async getDenounceHistoryByUser(req, res){
+        let body = req.body
+
+        let denounceList = await Denounce.find({userEmail: body.userEmail})
+
+        console.log(denounceList)
+
+        return res.status(200).json({
+			success: true,
+			payload: [denounceList]
+		});
     }
 
     static async searchDenounceByLocation(){}

@@ -70,7 +70,7 @@
                 "street": {
                   "example": "any"
                 },
-                "numer": {
+                "number": {
                   "example": "any"
                 },
                 "complement": {
@@ -163,7 +163,35 @@
       "get": {
         "description": "",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/denounces/denounces/denounce-history-by-user": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userEmail": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
     "/denounces/denounces/search-by-location": {

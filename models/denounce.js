@@ -17,11 +17,11 @@ var DenounceModel = new Schema({
     complement: {type : String},
     district: {type : String},
     description: {type : String},
-    images: {type : [String]},
-    videos: {type : [String]},
+    images: {type : [String], default: null},
+    videos: {type : [String], default: null},
     date: {type : String},
     status: {type: String, default: 'PENDENTE'},
-    commentaries: {type: [commentary]}
+    commentaries: {type: [commentary], default: null}
 },
 { versionKey: false }
 );

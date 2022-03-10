@@ -14,6 +14,9 @@ router.post('/denounces/approve-unapprove-denounce', DenounceController.approveU
 /* GET denounce history. */
 router.get('/denounces/denounce-history', DenounceController.getDenounceHistory);
 
+/* GET denounce history by user. */
+router.post('/denounces/denounce-history-by-user', DenounceController.getDenounceHistoryByUser);
+
 /* GET denounces by location. */
 router.get('/denounces/search-by-location', DenounceController.searchDenounceByLocation);
 
