@@ -23,7 +23,7 @@ var DenounceModel = new Schema({
     status: {type: String, default: 'PENDENTE'},
     commentaries: {type: [commentary], default: null}
 },
-{ versionKey: false }
+    { versionKey: false }
 );
 
 //Export function to create "UsersModel" model class

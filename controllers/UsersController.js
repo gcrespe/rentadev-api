@@ -17,7 +17,7 @@ class UsersController {
             });
         }
 
-        if(user.senha == body.senha){
+        if(user.password == body.senha){
             return res.status(200).json({
                 success: true,
                 message: 'Success',
@@ -33,7 +33,23 @@ class UsersController {
     }
 
 
-    static async changeProfileInfo(){}
+    static async register(req, res){
+        let body = req.body;
+
+        let user = new Users();
+
+        user.email = body.email
+        user.name = body.name
+        user.password = body.password
+
+        await user.save();
+
+        return res.status(200).json({
+			success: true,
+			message: 'Success',
+			payload: [user]
+		});
+    }
 
 }
 
