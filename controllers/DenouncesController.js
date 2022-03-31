@@ -91,7 +91,7 @@ class DenounceController {
 		});
     }
 
-    static async searchDenounceByDate(req, res){
+    static async searchDenounceByDateUser(req, res){
         let body = req.body
 
         let denounceList = await Denounce.find({userEmail: body.userEmail, date:{$gte: body.dataInicio, $lte: body.dataFim}}).sort({date: 1})
@@ -101,6 +101,18 @@ class DenounceController {
 			payload: [denounceList]
 		});
 
+
+    }
+
+    static async searchDenounceByDate(req, res){
+        let body = req.body
+
+        let denounceList = await Denounce.find({date:{$gte: body.dataInicio, $lte: body.dataFim}}).sort({date: 1})
+
+        return res.status(200).json({
+			success: true,
+			payload: [denounceList]
+		});
 
     }
 

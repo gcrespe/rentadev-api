@@ -237,6 +237,33 @@
             "schema": {
               "type": "object",
               "properties": {
+                "dataInicio": {
+                  "example": "any"
+                },
+                "dataFim": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/denounces/denounces/search-by-date-user": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
                 "userEmail": {
                   "example": "any"
                 },
