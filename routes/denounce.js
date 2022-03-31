@@ -14,11 +14,17 @@ router.post('/denounces/approve-unapprove-denounce', DenounceController.approveU
 /* GET denounce history. */
 router.get('/denounces/denounce-history', DenounceController.getDenounceHistory);
 
-/* GET denounce history by user. */
+/* POST denounce history by user. */
 router.post('/denounces/denounce-history-by-user', DenounceController.getDenounceHistoryByUser);
 
-/* GET denounces by location. */
+/* POST denounces by date. */
 router.post('/denounces/search-by-date', DenounceController.searchDenounceByDate);
+
+/* POST denounces by location. */
+router.post('/denounces/search-by-city', DenounceController.searchDenounceByCity);
+
+/* POST denounces by location. */
+router.post('/denounces/search-by-district', DenounceController.searchDenounceByDistrict);
 
 /* POST commentary to denounce. */
 router.post('/denounces/add-commentary', DenounceController.addComentaryToDenounce);
