@@ -69,6 +69,9 @@
                 },
                 "password": {
                   "example": "any"
+                },
+                "userType": {
+                  "example": "any"
                 }
               }
             }
@@ -224,18 +227,64 @@
         }
       }
     },
-    "/denounces/denounces/search-by-location": {
-      "get": {
+    "/denounces/denounces/search-by-date": {
+      "post": {
         "description": "",
-        "parameters": [],
-        "responses": {}
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userEmail": {
+                  "example": "any"
+                },
+                "dataInicio": {
+                  "example": "any"
+                },
+                "dataFim": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
     "/denounces/denounces/add-commentary": {
       "post": {
         "description": "",
-        "parameters": [],
-        "responses": {}
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "denounceId": {
+                  "example": "any"
+                },
+                "commentary": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
       }
     }
   }

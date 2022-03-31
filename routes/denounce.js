@@ -18,7 +18,7 @@ router.get('/denounces/denounce-history', DenounceController.getDenounceHistory)
 router.post('/denounces/denounce-history-by-user', DenounceController.getDenounceHistoryByUser);
 
 /* GET denounces by location. */
-router.get('/denounces/search-by-location', DenounceController.searchDenounceByLocation);
+router.post('/denounces/search-by-date', DenounceController.searchDenounceByDate);
 
 /* POST commentary to denounce. */
 router.post('/denounces/add-commentary', DenounceController.addComentaryToDenounce);

@@ -1,5 +1,7 @@
 const Denounce = require('../models/denounce')
+const request = require('request');
 const { v4: uuidv4 } = require('uuid');
+const { commentary } = require('../models/denounce')
 
 class DenounceController {
 
@@ -21,6 +23,14 @@ class DenounceController {
         denounce.date = body.date
         denounce.status = body.status
         denounce.commentaries = body.commentaries
+
+        request(`https://maps.googleapis.com/maps/api/geocode/json?address=${body.cep}&key=AIzaSyCxvTc_3L8Rk8hROFDJYnHr4V7wHaUeTMY`, function (error, response) {
+            if (!error && response.statusCode === 200) {
+                let obj = JSON.parse(response.body)
+                denounce.lat = obj.results[0].geometry.location.lat
+                denounce.lng = obj.results[0].geometry.location.lng
+            }
+        })
 
         await denounce.save();
 
@@ -64,8 +74,6 @@ class DenounceController {
 
         let denounceList = await Denounce.find({})
 
-        console.log(denounceList)
-
         return res.status(200).json({
 			success: true,
 			payload: [denounceList]
@@ -77,17 +85,44 @@ class DenounceController {
 
         let denounceList = await Denounce.find({userEmail: body.userEmail})
 
-        console.log(denounceList)
-
         return res.status(200).json({
 			success: true,
 			payload: [denounceList]
 		});
     }
 
-    static async searchDenounceByLocation(){}
+    static async searchDenounceByDate(req, res){
+        let body = req.body
 
-    static async addComentaryToDenounce(){}
+        let denounceList = await Denounce.find({userEmail: body.userEmail, date:{$gte: body.dataInicio, $lte: body.dataFim}}).sort({date: 1})
+
+        return res.status(200).json({
+			success: true,
+			payload: [denounceList]
+		});
+
+
+    }
+
+    static async addComentaryToDenounce(req, res){
+        let body = req.body
+
+        await Denounce.findOneAndUpdate({denounceId: body.denounceId},
+            {
+            "$push": {
+                commentaries: body.commentary
+            }
+            }, {
+                new: true //to return updated document
+            })
+            .exec(function(error, denounce) {
+                if (error) {
+                    return res.status(400).send({message: 'Failed to add comment due to invalid params!'});
+                }
+                    return res.status(200).send(denounce);
+            });
+
+    }
 
 }
 

@@ -5,7 +5,8 @@ const Schema = mongoose.Schema;
 var UsersModel = new Schema({
     email: {type : String},
     password: {type : String},
-    nome: {type: String}
+    nome: {type: String},
+    userType: {type: Number}
 },
 { versionKey: false }
 );

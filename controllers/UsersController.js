@@ -41,6 +41,7 @@ class UsersController {
         user.email = body.email
         user.name = body.name
         user.password = body.password
+        user.userType = body.userType
 
         await user.save();
 
