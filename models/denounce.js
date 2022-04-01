@@ -20,8 +20,8 @@ var DenounceModel = new Schema({
     district: {type : String},
     city: {type : String},
     description: {type : String},
-    images: {type : [String], default: null},
-    videos: {type : [String], default: null},
+    images: {type : String, default: null},
+    videos: {type : String, default: null},
     date: {type : Date},
     status: {type: String, default: 'PENDENTE'},
     commentaries: {type: [Object], default: null}

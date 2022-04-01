@@ -26,6 +26,9 @@ router.post('/denounces/search-by-city', DenounceController.searchDenounceByCity
 /* POST denounces by location. */
 router.post('/denounces/search-by-district', DenounceController.searchDenounceByDistrict);
 
+/* POST search denounces */
+router.post('/denounces/search', DenounceController.searchDenounce);
+
 /* POST commentary to denounce. */
 router.post('/denounces/add-commentary', DenounceController.addComentaryToDenounce);
 

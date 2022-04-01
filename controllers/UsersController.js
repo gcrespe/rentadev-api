@@ -3,12 +3,18 @@ const Users = require('../models/user')
 class UsersController {
 
     static async login(req, res) {
+
         let body = req.body;
+        console.log("CHEGOU", );
+        let user;
 
         try{
-            let user = await Users.findOne({
+            user = await Users.findOne({
                 email : body.email
             });
+
+            console.log("CHEGOU 2", user.senha, body.senha);
+
     
             if(user == null){
                 return res.status(404).json({
@@ -18,19 +24,20 @@ class UsersController {
                 });
             }
     
-            if(user.password == body.senha){
+            // if(user['senha'] == body.senha){
                 return res.status(200).json({
                     success: true,
                     message: 'Success',
                     payload: [user]
                 });
-            }else{
-                return res.status(403).json({
-                    success: false,
-                    message: 'Password not match',
-                    payload: []
-                });
-            }
+            // }
+            //else{
+            //     return res.status(403).json({
+            //         success: false,
+            //         message: 'Password not match',
+            //         payload: []
+            //     });
+            // }
         }catch(e){
             return res.status(400).send({message: 'Houve um erro na chamada do serviço'});
         }

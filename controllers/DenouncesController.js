@@ -1,12 +1,17 @@
 const Denounce = require('../models/denounce')
 const request = require('request');
 const { v4: uuidv4 } = require('uuid');
-const { commentary } = require('../models/denounce')
+const { commentary } = require('../models/denounce');
+const {
+    ObjectId
+} = require("mongodb");
 
 class DenounceController {
 
     static async registerDenounce(req, res){
         let body = req.body;
+
+        console.log(body);
 
         try{
 
@@ -75,15 +80,17 @@ class DenounceController {
 
         try{
             
-            Denounce.findOneAndUpdate(
-                {denouceId: body.denounceId},
-                {status: body.status}
-            )
+            let denounce = await Denounce.findOne({_id: ObjectId(body.denounceId)});
+
+            if(denounce == null) return res.status(400).send({message: 'Failed to add comment due to invalid params!'});
     
+            denounce.status = body.status;
+            await denounce.save();
+                    
             return res.status(200).json({
                 success: true,
                 message: 'The following denounce has been updated',
-                payload: [body.denounceId]
+                payload: [denounce]
             });
 
         }catch(e){
@@ -112,6 +119,23 @@ class DenounceController {
 			payload: [denounceList]
 		});
     }
+
+    static async searchDenounce(req, res){
+        let body = req.body;
+        let where = {};
+
+        if(body.city) where.city = body.city;
+        if(body.start && body.end ) where.date = {$gte: body.start, $lte: body.end};
+        if(body.district) where.district = body.district;
+
+        let denounceList = await Denounce.find(where);
+
+        return res.status(200).json({
+			success: true,
+			payload: [denounceList]
+		});
+    }
+
 
     static async searchDenounceByCity(req, res){
         let body = req.body
@@ -151,21 +175,15 @@ class DenounceController {
     static async addComentaryToDenounce(req, res){
         let body = req.body
 
-        await Denounce.findOneAndUpdate({_id: body.denounceId},
-            {
-            "$push": {
-                commentaries: body.commentary
-            }
-            }, {
-                new: true //to return updated document
-            })
-            .exec(function(error, denounce) {
-                if (error) {
-                    return res.status(400).send({message: 'Failed to add comment due to invalid params!'});
-                }
-                    return res.status(200).send(denounce);
-            });
+        let denounce = await Denounce.findOne({_id: ObjectId(body.denounceId)});
 
+        if(denounce == null) return res.status(400).send({message: 'Failed to add comment due to invalid params!'});
+
+        denounce.commentaries = body.commentary;
+        await denounce.save();
+                
+        return res.status(200).send(denounce);
+     
     }
 
 }
