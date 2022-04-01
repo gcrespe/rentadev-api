@@ -151,7 +151,7 @@ class DenounceController {
     static async addComentaryToDenounce(req, res){
         let body = req.body
 
-        await Denounce.findOneAndUpdate({denounceId: body.denounceId},
+        await Denounce.findOneAndUpdate({_id: body.denounceId},
             {
             "$push": {
                 commentaries: body.commentary
